@@ -8,6 +8,8 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const imageRoutes = require('./routes/image');
 const userRoutes = require('./routes/user');
+const speedInsightsDemoRoutes = require('./routes/speedInsightsDemo');
+const injectSpeedInsights = require('./middleware/speedInsights');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +19,9 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Vercel Speed Insights middleware
+app.use(injectSpeedInsights());
+
 // 静态文件托管，让上传的图片可访问
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -24,6 +29,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/user', userRoutes);
+app.use('/speed-insights', speedInsightsDemoRoutes);
 
 app.get('/', (req, res) => {
   res.json({ status: '后端运行中' });
