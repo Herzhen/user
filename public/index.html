@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Server Status</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+    }
+    
+    .status {
+      display: inline-block;
+      background: #10b981;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin: 20px 0;
+      font-size: 1.1rem;
+    }
+    
+    .info {
+      color: #666;
+      line-height: 1.8;
+      margin-top: 20px;
+    }
+    
+    .endpoints {
+      margin-top: 30px;
+      text-align: left;
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    .endpoints h2 {
+      color: #333;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+    
+    .endpoint {
+      margin: 10px 0;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .endpoint code {
+      color: #667eea;
+      font-weight: 600;
+    }
+    
+    .endpoint-desc {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    
+    .pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 API Server</h1>
+    <div class="status pulse">● 后端运行中</div>
+    
+    <div class="info">
+      <p>服务器正在正常运行并准备接受请求</p>
+    </div>
+    
+    <div class="endpoints">
+      <h2>可用接口</h2>
+      
+      <div class="endpoint">
+        <code>POST /api/auth/register</code>
+        <div class="endpoint-desc">用户注册</div>
+      </div>
+      
+      <div class="endpoint">
+        <code>POST /api/auth/login</code>
+        <div class="endpoint-desc">用户登录</div>
+      </div>
+      
+      <div class="endpoint">
+        <code>POST /api/auth/wechatPhoneLogin</code>
+        <div class="endpoint-desc">微信一键登录</div>
+      </div>
+      
+      <div class="endpoint">
+        <code>POST /api/images/*</code>
+        <div class="endpoint-desc">图片管理接口</div>
+      </div>
+      
+      <div class="endpoint">
+        <code>GET /api/user/*</code>
+        <div class="endpoint-desc">用户管理接口</div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module">
+    import { injectSpeedInsights } from 'https://unpkg.com/@vercel/speed-insights@1/dist/index.mjs';
+    injectSpeedInsights();
+  </script>
+</body>
+</html>

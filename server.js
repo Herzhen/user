@@ -20,12 +20,15 @@ app.use(express.json());
 // 静态文件托管，让上传的图片可访问
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// 提供静态 HTML 页面（用于 Speed Insights）
+app.use(express.static(path.join(__dirname, 'public')));
+
 // 路由
 app.use('/api/auth', authRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/user', userRoutes);
 
-app.get('/', (req, res) => {
+app.get('/status', (req, res) => {
   res.json({ status: '后端运行中' });
 });
 
