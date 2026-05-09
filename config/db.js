@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ MongoDB 连接成功');
-  } catch (err) {
-    console.error('❌ MongoDB 连接失败:', err.message);
-    process.exit(1);
+let cached = global.mongoose;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDB() {
+  if (cached.conn) return cached.conn;
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(process.env.MONGODB_URI).then((mongoose) => mongoose);
   }
-};
+  cached.conn = await cached.promise;
+  console.log('✅ MongoDB 连接成功 (Vercel)');
+  return cached.conn;
+}
 
 module.exports = connectDB;
